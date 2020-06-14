@@ -1,4 +1,5 @@
 from pkgutil import get_data
+from psycopg2.extras import register_uuid
 from typing import Any, ContextManager, Dict
 import psycopg2
 import yaml
@@ -24,4 +25,5 @@ def connect() -> Connectable:
     params = read_params()
     conn: Connectable = psycopg2.connect(**params["database"])
     conn.set_session(isolation_level=psycopg2.extensions.ISOLATION_LEVEL_REPEATABLE_READ)
+    register_uuid()
     return conn
