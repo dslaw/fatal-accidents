@@ -1,4 +1,4 @@
-from bottle import Bottle, response
+from bottle import Bottle, request, response
 from rq import Queue
 from uuid import uuid4
 import redis
@@ -33,9 +33,11 @@ def check_health():
 
 @app.route("/runs/<year:int>", method="POST")
 def enqueue_partition(year: int):
+    skip_cache = request.json.get("skip_cache", False)
+
     run_id = uuid4()
 
-    fetch_job = queue.enqueue(fetch_zipfile, year)
+    fetch_job = queue.enqueue(fetch_zipfile, year, skip_cache)
     staging_job = queue.enqueue(load.load_partition, year, run_id, depends_on=fetch_job)
     queue.enqueue(mart.load_partition, "vehicle", year, run_id, depends_on=staging_job)
 

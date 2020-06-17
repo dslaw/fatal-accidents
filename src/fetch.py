@@ -26,13 +26,16 @@ def make_zipfile(year: int) -> Path:
     return (STAGING_DIR / str(year)).with_suffix(".zip")
 
 
-def fetch_zipfile(year: int) -> None:
+def fetch_zipfile(year: int, skip_cache: bool) -> None:
     try:
         url = LINKS[year]
     except KeyError:
         raise ValueError(f"{year} not found")
 
     output_file = make_zipfile(year)
+
+    if not skip_cache and output_file.exists():
+        return
 
     # Based on: https://stackoverflow.com/a/39217788
     with requests.get(url, stream=True, timeout=60) as response:
