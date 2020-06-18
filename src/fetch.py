@@ -6,8 +6,11 @@ from typing import Dict
 import json
 import requests
 
+from src.common import read_params
 
-STAGING_DIR = Path("data")
+
+params = read_params()
+STAGING_DIR = Path(params["cache_dir"])
 URLS_FILE = Path("src/resources/dataset_urls.json")
 
 

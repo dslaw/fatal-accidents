@@ -2,8 +2,18 @@ dist: bionic
 language: python
 python: 3.8
 
+services:
+  - docker
+
+env:
+  global:
+    - POSTGRES_DB=accidents
+    - POSTGRES_USER=ci
+    - POSTGRES_PASSWORD=ci
+
 install: pip install -r requirements-dev.txt
-scripts:
+script:
   - isort --check-only src/**.py scripts/*.py
   - mypy --package=src
   - flake8 src/ scripts/
+  - docker-compose build

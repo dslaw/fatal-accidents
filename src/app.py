@@ -9,7 +9,7 @@ from src.fetch import fetch_zipfile
 
 
 params = read_params()
-redis_conn = redis.Redis(**params["redis"])
+redis_conn = redis.Redis.from_url(params["queue_url"])
 queue = Queue(default_timeout="15m", connection=redis_conn)
 app = Bottle()
 
