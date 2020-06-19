@@ -1,0 +1,9 @@
+dist: bionic
+language: python
+python: 3.8
+
+install: pip install -r requirements-dev.txt
+scripts:
+  - isort --check-only src/**.py scripts/*.py
+  - mypy --package=src
+  - flake8 src/ scripts/

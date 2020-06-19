@@ -1,5 +1,7 @@
 # fatal-accidents
 
+[![Build Status](https://travis-ci.org/dslaw/fatal-accidents.svg?branch=master)](https://travis-ci.org/dslaw/fatal-accidents)
+
 Example of event-driven ELT using the
 [FARS](https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars)
 (USA fatal traffic accidents) data.
