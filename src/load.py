@@ -31,18 +31,19 @@ class Metadata(NamedTuple):
 STAGING_SCHEMA = "staging"
 
 
-def read_data(table: str, year: int) -> Iterable[Record]:
+def read_data(table: str, year: int) -> str:
     input_file = make_zipfile(year)
     file = Path(table).with_suffix(".csv")
 
     with ZipFile(input_file, "r") as zf:
-        try:
-            filename = str(file).upper()
-            data = zf.read(filename)
-        except KeyError:
-            raise ValueError(f"{file} not found")
+        filename = str(file).upper()
+        data = zf.read(filename)
 
-    with StringIO(data.decode()) as buffer:
+    return data.decode()
+
+
+def deserialize(data: str) -> Iterable[Record]:
+    with StringIO(data) as buffer:
         reader = csv.DictReader(buffer)
         for record in reader:
             yield record
@@ -71,10 +72,16 @@ def load_table_partition(conn: Connectable, table: str, year: int, run_id: UUID)
     qualified_table = sql.Identifier(STAGING_SCHEMA, dst_table)
     metadata = Metadata.create(run_id, year)
 
-    columns = data_mapping.table_columns[dst_table]
-    records = read_data(table, year)
+    try:
+        data = read_data(table, year)
+    except KeyError:
+        # Table is registered as known, but doesn't exist for
+        # this year.
+        return
 
     # Prepare data for bulk load.
+    records = deserialize(data)
+    columns = data_mapping.table_columns[dst_table]
     cased_columns = [column.upper() for column in columns]
     rows = map(lambda record: make_row(record, cased_columns, metadata), records)
     dst_columns = columns + list(metadata._fields)
