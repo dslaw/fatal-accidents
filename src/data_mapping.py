@@ -3,6 +3,8 @@ tables = {
     "distract": "distractions",
     "drimpair": "impairments",
     "vehicle": "vehicles",
+    "person": "persons",
+    "pbtype": "non_motorists",  # From 2014.
 }
 
 table_columns = {
@@ -18,8 +20,6 @@ table_columns = {
         "lgt_cond",
         "weather1",
         "weather2",
-        "fatals",
-        "permvit",
     ],
     "distractions": [
         "st_case",
@@ -36,8 +36,29 @@ table_columns = {
         "veh_no",
         "hit_run",
         "pfire",
-        "deaths",
         "dr_drink",
         "l_status",
+    ],
+    "persons": [
+        "st_case",
+        "veh_no",
+        "per_no",
+        "age",
+        "sex",
+        "per_typ",
+        "drinking",
+        "alc_res",
+        "drugs",
+        "death_da",
+    ],
+    "non_motorists": [
+        "st_case",
+        "veh_no",
+        "per_no",
+        "pbcwalk",
+        "pbswalk",
+        "pbszone",
+        "pedcgp",
+        "bikecgp",
     ],
 }

@@ -75,13 +75,6 @@ insert into mart.distractions_lookup (id, description) values
     (98, 'Other Distraction'),
     (99, 'Unknown if Distracted');
 
--- pg 92
-insert into mart.hitrun_lookup (id, description) values
-    (0, 'No'),
-    (1, 'Yes'),
-    (8, 'Not Reported'),
-    (9, 'Unknown');
-
 -- pg 157
 insert into mart.license_status_lookup (id, description) values
     (0, 'Not Licensed'),
@@ -92,6 +85,64 @@ insert into mart.license_status_lookup (id, description) values
     (6, 'Valid License'),
     (7, 'No Driver Present/Unknown if Driver Present'),
     (9, 'Unknown License Status');
+
+-- pg 547
+insert into mart.person_type_lookup values
+    (1, 'Driver of a Motor Vehicle In-Transport', 'Driver', true),
+    (2, 'Passenger of a Motor Vehicle In-Transport', 'Passenger', true),
+    (3, 'Occupant of a Motor Vehicle Not In-Transport', 'Other non-occupant', false),
+    (4, 'Occupant of a Non-Motor Vehicle Transport Device', 'Other non-occupant', false),
+    (5, 'Pedestrian', 'Pedestrian', false),
+    (6, 'Bicyclist', 'Pedalcyclist', false),
+    (7, 'Other Cyclist', 'Pedalcyclist', false),
+    (8, 'Person on Personal Conveyances', 'Other non-occupant', false),
+    (9, 'Unknown Occupant Type in a Motor Vehicle In-Transport', 'Passenger', true),
+    (10, 'Persons In/On Buildings', 'Other non-occupant', false),
+    (19, 'Not Reported/Unknown Type of Non-Motorist', 'Unknown non-occupant type', false),
+    (88, 'Not Reported/Unknown Type of Non-Motorist', 'Unknown person type', null);
+
+-- pg 448
+insert into mart.crash_group_pedestrian_lookup values
+    (100, 'Unusual Circumstances'),
+    (200, 'Backing Vehicle'),
+    (310, 'Working or Playing in Roadway'),
+    (340, 'Bus/Bus Stop-Related'),
+    (350, 'Unique Midbock'),
+    (400, 'Walking/Running Along Roadway'),
+    (460, 'Diveway Access/Driveway Access Related'),
+    (500, 'Waiting to Cross'),
+    (600, 'Pedestrian in Roadway - Circumstances Unknown'),
+    (720, 'Multiple Threat/Trapped'),
+    (740, 'Dash/Dart-Out'),
+    (750, 'Crossing Roadway - Vehicle Not Turning'),
+    (790, 'Crossing Roadway - Vehicle Turning'),
+    (800, 'Non-Trafficway'),
+    (910, 'Crossing Expressway'),
+    (990, 'Other/Unknown - Insufficient Details');
+
+-- pg 449
+insert into mart.crash_group_bicyclist_lookup values
+    (110, 'Loss of Control/Turning Error'),
+    (140, 'Motorist Failed to Yield - Sign-Controlled Intersection'),
+    (145, 'Bicyclist Failed to Yield - Sign-Controlled Intersection'),
+    (150, 'Motorist Failed to Yield - Signalized Intersection'),
+    (158, 'Bicyclist Failed to Yield - Signalized Intersection'),
+    (190, 'Crossing Paths - Other Circumstances'),
+    (210, 'Motorist Left Turn/Merge'),
+    (215, 'Motorist Right Turn/Merge'),
+    (219, 'Parking/Bus-Related'),
+    (220, 'Bicyclist Left Turn/Merge'),
+    (225, 'Bicyclist Right Turn/Merge'),
+    (230, 'Motorist Overtaking Bicyclist'),
+    (240, 'Bicyclist Overtaking Motorist'),
+    (258, 'Wrong-Way/Wrong-Side'),
+    (290, 'Parallel Paths - Other Circumstances'),
+    (310, 'Bicyclist Failed to Yield - Midblock'),
+    (320, 'Motorist Failed to Yield - Midblock'),
+    (600, 'Backing Vehicle'),
+    (850, 'Other/Unusual Circumstances'),
+    (910, 'Non-Trafficway'),
+    (990, 'Other/Unknown - Insufficient Details');
 
 
 -- Static date/time values.

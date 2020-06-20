@@ -28,13 +28,6 @@ create table mart.distractions_lookup (
     primary key (id)
 );
 
-create table mart.hitrun_lookup (
-    id smallint,
-    description text not null,
-    check (id >= 0 and id <= 9),
-    primary key (id)
-);
-
 create table mart.license_status_lookup (
     id smallint,
     description text not null,
@@ -42,12 +35,26 @@ create table mart.license_status_lookup (
     primary key (id)
 );
 
-create table mart.dim_vehicle (
-    id serial,
-    year smallint not null,
-    st_case integer not null,
-    veh_no integer not null,
-    unique (year, st_case, veh_no),
+create table mart.person_type_lookup (
+    id smallint,
+    type text not null,
+    classification text not null,
+    occupant boolean,
+    check (id >= 0 and id <= 88),
+    primary key (id)
+);
+
+create table mart.crash_group_pedestrian_lookup (
+    id smallint,
+    description text not null,
+    check (id >= 0 and id <= 990),
+    primary key (id)
+);
+
+create table mart.crash_group_bicyclist_lookup (
+    id smallint,
+    description text not null,
+    check (id >= 0 and id <= 990),
     primary key (id)
 );
 
@@ -65,30 +72,55 @@ create table mart.dim_time (
     primary key (id)
 );
 
-create table mart.fact_vehicle (
-    crash_vehicle_id integer not null,
+create table mart.dim_vehicle (
+    id serial,
+    year smallint not null,
+    st_case integer not null,
+    veh_no integer not null,
+    driver_drinking boolean not null,
+    driver_license_status text not null,
+    unique (year, st_case, veh_no),
+    primary key (id)
+);
+
+create table mart.dim_person (
+    id serial,
+    year smallint not null,
+    st_case integer not null,
+    veh_no integer not null,
+    per_no integer not null,
+    unique (year, st_case, veh_no, per_no),
+    primary key (id)
+);
+
+create table mart.fact_person (
+    person_id integer not null,
+    vehicle_id integer,
     crash_date_id integer not null,
     crash_time_id integer,
-    light_condition_id smallint,
-    location geography(point, 4326),
-    weather_id_1 smallint, -- TODO: rename
-    weather_id_2 smallint, -- TODO: rename
-    fatalities smallint,
-    persons_in_motor_transport smallint,
-    driver_distractions integer,
-    driver_impairments integer,
-    hit_run_id smallint,
-    fire_occurred boolean,
-    deaths smallint,
-    driver_drinking boolean,
-    license_status_id smallint,
-    foreign key (crash_vehicle_id) references mart.dim_vehicle (id),
+    crash_location geography(point, 4326),
+    light_condition text,
+    primary_weather text,
+    secondary_weather text,
+    veh_hit_run boolean,
+    veh_fire_occurred boolean,
+    age integer,
+    sex text,
+    died boolean,
+    person_type text,
+    person_type_classification text,
+    occupant boolean,
+    non_motorist_type text,
+    non_motorist_crash_group text,
+    alcohol_involved boolean,
+    alcohol_test_bac integer,
+    drugs_involved boolean,
+    crosswalk_present boolean,
+    sidewalk_present boolean,
+    in_school_zone boolean,
+    foreign key (person_id) references mart.dim_person (id),
+    foreign key (vehicle_id) references mart.dim_vehicle (id),
     foreign key (crash_date_id) references mart.dim_date (id),
     foreign key (crash_time_id) references mart.dim_time (id),
-    foreign key (light_condition_id) references mart.light_condition_lookup (id),
-    foreign key (weather_id_1) references mart.weather_lookup (id),
-    foreign key (weather_id_2) references mart.weather_lookup (id),
-    foreign key (hit_run_id) references mart.hitrun_lookup (id),
-    foreign key (license_status_id) references mart.license_status_lookup (id),
-    primary key (crash_vehicle_id)
+    primary key (person_id)
 );
