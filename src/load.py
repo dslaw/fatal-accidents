@@ -33,10 +33,13 @@ STAGING_SCHEMA = "staging"
 
 def read_data(table: str, year: int) -> str:
     input_file = make_zipfile(year)
-    file = Path(table).with_suffix(".csv")
 
     with ZipFile(input_file, "r") as zf:
-        filename = str(file).upper()
+        # There's at least one file for one year that has the
+        # suffix lowercased, while others are uppercased, so
+        # we build a case-insensitive map to simplify.
+        names = {Path(name).stem.lower(): name for name in zf.namelist()}
+        filename = names[table.lower()]
         data = zf.read(filename)
 
     return data.decode()
