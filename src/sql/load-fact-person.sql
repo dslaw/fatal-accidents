@@ -1,33 +1,3 @@
--- Upsert a partition for the vehicle dimension.
-insert into mart.dim_vehicle (year, st_case, veh_no, driver_drinking, driver_license_status)
-select
-    etl_year,
-    st_case,
-    veh_no,
-    dr_drink,
-    license_status_lookup.description
-from staging.vehicles
-inner join mart.license_status_lookup on
-    vehicles.l_status = license_status_lookup.id
-where
-    etl_year = %(year)s
-    and etl_run_id = %(run_id)s
-on conflict (year, st_case, veh_no) do nothing;
-
--- Upsert a partition for the person dimension.
--- `non_motorists` is a subset of `persons` with additional information.
-insert into mart.dim_person (year, st_case, veh_no, per_no)
-select
-    etl_year,
-    st_case,
-    veh_no,
-    per_no
-from staging.persons
-where
-    etl_year = %(year)s
-    and etl_run_id = %(run_id)s
-on conflict (year, st_case, veh_no, per_no) do nothing;
-
 -- Upsert a partition for the person facts.
 create temp table staging as (select * from mart.fact_person limit 0);
 insert into staging
@@ -191,3 +161,5 @@ insert into mart.fact_person (
     in_school_zone
 )
 table staging;
+
+drop table staging;

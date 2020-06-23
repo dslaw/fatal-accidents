@@ -39,7 +39,7 @@ def enqueue_partition(year: int):
 
     fetch_job = queue.enqueue(fetch_zipfile, year, skip_cache)
     staging_job = queue.enqueue(load.load_partition, year, run_id, depends_on=fetch_job)
-    queue.enqueue(mart.load_partition, "person", year, run_id, depends_on=staging_job)
+    queue.enqueue(mart.load_partition, year, run_id, depends_on=staging_job)
 
     response.status = 202
     return {"id": str(run_id)}

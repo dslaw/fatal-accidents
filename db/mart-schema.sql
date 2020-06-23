@@ -14,20 +14,6 @@ create table mart.weather_lookup (
     primary key (id)
 );
 
-create table mart.impairment_lookup (
-    id smallint,
-    description text not null,
-    check (id >= 0 and id <= 99),
-    primary key (id)
-);
-
-create table mart.distractions_lookup (
-    id smallint,
-    description text not null,
-    check (id >= 0 and id <= 99),
-    primary key (id)
-);
-
 create table mart.license_status_lookup (
     id smallint,
     description text not null,
@@ -55,6 +41,41 @@ create table mart.crash_group_bicyclist_lookup (
     id smallint,
     description text not null,
     check (id >= 0 and id <= 990),
+    primary key (id)
+);
+
+create table mart.impairment_lookup (
+    id smallint,
+    description text not null,
+    check (id >= 0 and id <= 99),
+    primary key (id)
+);
+
+create table mart.distractions_lookup (
+    id smallint,
+    description text not null,
+    check (id >= 0 and id <= 99),
+    primary key (id)
+);
+
+create table mart.veh_factors_lookup (
+    id smallint,
+    description text not null,
+    check (id >= 0 and id <= 99),
+    primary key (id)
+);
+
+create table mart.visual_obstructions_lookup (
+    id smallint,
+    description text not null,
+    check (id >= 0 and id <= 99),
+    primary key (id)
+);
+
+create table mart.nm_impairments_lookup (
+    id smallint,
+    description text not null,
+    check (id >= 0 and id <= 99),
     primary key (id)
 );
 
@@ -123,4 +144,14 @@ create table mart.fact_person (
     foreign key (crash_date_id) references mart.dim_date (id),
     foreign key (crash_time_id) references mart.dim_time (id),
     primary key (person_id)
+);
+
+-- Factors related to a vehicle's crash.
+create table mart.fact_factor (
+    vehicle_id integer,
+    person_id integer,
+    type text not null,
+    crash_factor text not null,
+    foreign key (vehicle_id) references mart.dim_vehicle (id),
+    foreign key (person_id) references mart.dim_person (id)
 );

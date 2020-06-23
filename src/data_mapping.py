@@ -1,10 +1,13 @@
 tables = {
     "accident": "accidents",
-    "distract": "distractions",
-    "drimpair": "impairments",
     "vehicle": "vehicles",
     "person": "persons",
     "pbtype": "non_motorists",  # From 2014.
+    "distract": "distractions",
+    "drimpair": "impairments",
+    "factor": "veh_factors",
+    "vision": "visual_obstructions",
+    "nmimpair": "nm_impairments",
 }
 
 table_columns = {
@@ -20,16 +23,6 @@ table_columns = {
         "lgt_cond",
         "weather1",
         "weather2",
-    ],
-    "distractions": [
-        "st_case",
-        "veh_no",
-        "mdrdstrd",
-    ],
-    "impairments": [
-        "st_case",
-        "veh_no",
-        "drimpair",
     ],
     "vehicles": [
         "st_case",
@@ -60,5 +53,31 @@ table_columns = {
         "pbszone",
         "pedcgp",
         "bikecgp",
+    ],
+    "distractions": [
+        "st_case",
+        "veh_no",
+        "mdrdstrd",
+    ],
+    "impairments": [
+        "st_case",
+        "veh_no",
+        "drimpair",
+    ],
+    "veh_factors": [
+        "st_case",
+        "veh_no",
+        "mfactor",
+    ],
+    "visual_obstructions": [
+        "st_case",
+        "veh_no",
+        "mvisobsc",
+    ],
+    "nm_impairments": [
+        "st_case",
+        "veh_no",
+        "per_no",
+        "nmimpair",
     ],
 }

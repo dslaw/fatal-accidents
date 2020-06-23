@@ -18,26 +18,6 @@ create table staging.accidents (
     etl_loaded_at timestamp without time zone not null
 );
 
-create table staging.distractions (
-    id serial not null,
-    st_case integer,
-    veh_no smallint,
-    mdrdstrd smallint,
-    etl_run_id uuid not null,
-    etl_year smallint not null,
-    etl_loaded_at timestamp without time zone not null
-);
-
-create table staging.impairments (
-    id serial not null,
-    st_case integer,
-    veh_no smallint,
-    drimpair smallint,
-    etl_run_id uuid not null,
-    etl_year smallint not null,
-    etl_loaded_at timestamp without time zone not null
-);
-
 create table staging.vehicles (
     id serial not null,
     st_case integer,
@@ -78,6 +58,57 @@ create table staging.non_motorists (
     pbszone smallint,
     pedcgp smallint,
     bikecgp smallint,
+    etl_run_id uuid not null,
+    etl_year smallint not null,
+    etl_loaded_at timestamp without time zone not null
+);
+
+create table staging.distractions (
+    id serial not null,
+    st_case integer,
+    veh_no smallint,
+    mdrdstrd smallint,
+    etl_run_id uuid not null,
+    etl_year smallint not null,
+    etl_loaded_at timestamp without time zone not null
+);
+
+create table staging.impairments (
+    id serial not null,
+    st_case integer,
+    veh_no smallint,
+    drimpair smallint,
+    etl_run_id uuid not null,
+    etl_year smallint not null,
+    etl_loaded_at timestamp without time zone not null
+);
+
+create table staging.veh_factors (
+    id serial not null,
+    st_case integer,
+    veh_no smallint,
+    mfactor smallint,
+    etl_run_id uuid not null,
+    etl_year smallint not null,
+    etl_loaded_at timestamp without time zone not null
+);
+
+create table staging.visual_obstructions (
+    id serial not null,
+    st_case integer,
+    veh_no smallint,
+    mvisobsc smallint,
+    etl_run_id uuid not null,
+    etl_year smallint not null,
+    etl_loaded_at timestamp without time zone not null
+);
+
+create table staging.nm_impairments (
+    id serial not null,
+    st_case integer,
+    veh_no smallint,
+    per_no smallint,
+    nmimpair smallint,
     etl_run_id uuid not null,
     etl_year smallint not null,
     etl_loaded_at timestamp without time zone not null
