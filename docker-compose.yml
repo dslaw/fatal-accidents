@@ -18,7 +18,7 @@ services:
 
   worker:
     build: .
-    command: rq worker -u redis://queue:6379
+    command: rq worker -u redis://queue:6379 -w src.tracking.TrackingWorker
     environment:
       DATABASE_URL: postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@database:5432/$POSTGRES_DB
       QUEUE_URL: redis://queue:6379
@@ -46,10 +46,11 @@ services:
     ports:
       - "8002:5432"
     volumes:
-      - $PWD/db/staging-schema.sql:/docker-entrypoint-initdb.d/11-staging-schema.sql
-      - $PWD/db/mart-schema.sql:/docker-entrypoint-initdb.d/12-mart-schema.sql
-      - $PWD/db/hydrate-mart.sql:/docker-entrypoint-initdb.d/13-hydrate-mart.sql
-      - $PWD/db/hydrate-gis.sh:/docker-entrypoint-initdb.d/14-hydrate-gis.sh
+      - $PWD/db/meta-schema.sql:/docker-entrypoint-initdb.d/11-meta-schema.sql
+      - $PWD/db/staging-schema.sql:/docker-entrypoint-initdb.d/12-staging-schema.sql
+      - $PWD/db/mart-schema.sql:/docker-entrypoint-initdb.d/13-mart-schema.sql
+      - $PWD/db/hydrate-mart.sql:/docker-entrypoint-initdb.d/14-hydrate-mart.sql
+      - $PWD/db/hydrate-gis.sh:/docker-entrypoint-initdb.d/15-hydrate-gis.sh
       - db-data:/var/lib/postgresql/data
 
 volumes:
