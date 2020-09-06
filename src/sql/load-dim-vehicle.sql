@@ -9,7 +9,5 @@ select
 from staging.vehicles
 inner join mart.license_status_lookup on
     vehicles.l_status = license_status_lookup.id
-where
-    etl_year = %(year)s
-    and etl_run_id = %(run_id)s
+where etl_run_id = %(run_id)s
 on conflict (year, st_case, veh_no) do nothing;

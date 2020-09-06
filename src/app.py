@@ -56,7 +56,6 @@ def enqueue_partition(year: int):
     )
     queue.enqueue(
         mart.load_partition,
-        year,
         run.id,
         depends_on=staging_job,
         meta={**meta, "last_job": True}  # type: ignore

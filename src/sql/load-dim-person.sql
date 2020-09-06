@@ -7,7 +7,5 @@ select
     veh_no,
     per_no
 from staging.persons
-where
-    etl_year = %(year)s
-    and etl_run_id = %(run_id)s
+where etl_run_id = %(run_id)s
 on conflict (year, st_case, veh_no, per_no) do nothing;

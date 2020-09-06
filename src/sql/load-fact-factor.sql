@@ -87,8 +87,7 @@ left outer join mart.dim_person on
     and merged.veh_no = dim_person.veh_no
     and merged.per_no = dim_person.per_no
 where
-    merged.etl_year = %(year)s
-    and merged.etl_run_id = %(run_id)s
+    merged.etl_run_id = %(run_id)s
     -- Not all factors are connected to a vehicle or person, although they
     -- logically have to be. As vehicle and person are the grains under
     -- consideration, we filter these "entity-less" records out, although

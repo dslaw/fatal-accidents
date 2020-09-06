@@ -21,13 +21,13 @@ def read_sql(filestem: str) -> List[str]:
     return stmts
 
 
-def load_partition(year: int, run_id: UUID) -> None:
+def load_partition(run_id: UUID) -> None:
     conn = connect()
 
     with conn, conn.cursor() as cursor:
         for subtask in SUBTASKS:
             stmts = read_sql(subtask)
             for stmt in stmts:
-                cursor.execute(stmt, {"year": year, "run_id": run_id})
+                cursor.execute(stmt, {"run_id": run_id})
 
     return

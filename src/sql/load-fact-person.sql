@@ -84,8 +84,7 @@ select
     end
 from staging.persons
 left outer join staging.non_motorists on
-    persons.etl_year = non_motorists.etl_year
-    and persons.st_case = non_motorists.st_case
+    persons.st_case = non_motorists.st_case
     and persons.veh_no = non_motorists.veh_no
     and persons.per_no = non_motorists.per_no
     and persons.etl_run_id = non_motorists.etl_run_id
@@ -95,17 +94,14 @@ inner join mart.dim_person on
     and persons.veh_no = dim_person.veh_no
     and persons.per_no = dim_person.per_no
 left outer join mart.dim_vehicle on
-    persons.etl_year = dim_vehicle.year
-    and persons.st_case = dim_vehicle.st_case
+    persons.st_case = dim_vehicle.st_case
     and persons.veh_no = dim_vehicle.veh_no
 left outer join staging.vehicles on
-    persons.etl_year = vehicles.etl_year
-    and persons.st_case = vehicles.st_case
+    persons.st_case = vehicles.st_case
     and persons.veh_no = vehicles.veh_no
     and persons.etl_run_id = vehicles.etl_run_id
 left outer join staging.accidents on
-    persons.etl_year = accidents.etl_year
-    and persons.st_case = accidents.st_case
+    persons.st_case = accidents.st_case
     and persons.etl_run_id = accidents.etl_run_id
 left outer join mart.dim_date on
     make_date(accidents.year, accidents.month, accidents.day) = dim_date.value
@@ -126,9 +122,7 @@ left outer join mart.crash_group_pedestrian_lookup on
     non_motorists.pedcgp = crash_group_pedestrian_lookup.id
 left outer join mart.crash_group_bicyclist_lookup on
     non_motorists.bikecgp = crash_group_bicyclist_lookup.id
-where
-    persons.etl_year = %(year)s
-    and persons.etl_run_id = %(run_id)s;
+where persons.etl_run_id = %(run_id)s;
 
 delete from mart.fact_person as target
 using staging
