@@ -6,6 +6,8 @@ import psycopg2
 
 
 class Connectable(ContextManager):
+    autocommit: bool
+
     def cursor(self, *args, **kwargs) -> psycopg2.extensions.cursor:
         ...
 

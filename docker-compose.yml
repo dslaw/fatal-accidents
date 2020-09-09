@@ -39,6 +39,7 @@ services:
 
   database:
     image: postgis/postgis:11-3.0-alpine
+    command: postgres -c wal_level=minimal -c max_wal_senders=0 -c archive_mode=off
     environment:
       POSTGRES_USER: $POSTGRES_USER
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD

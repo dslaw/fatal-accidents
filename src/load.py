@@ -116,4 +116,10 @@ def load_partition(year: int, run_id: UUID) -> None:
     for table in data_mapping.tables:
         load_table_partition(conn, table, year, run_id)
 
+    # Ensure table statistics are updated, in case autovacuum doesn't run
+    # before the next read.
+    conn.autocommit = True
+    with conn.cursor() as cursor:
+        cursor.execute("vacuum analyze")
+
     return
