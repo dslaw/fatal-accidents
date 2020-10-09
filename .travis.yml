@@ -13,7 +13,7 @@ env:
 
 install: pip install -r requirements-dev.txt
 script:
-  - isort --check-only src/**.py scripts/*.py
+  - isort --check-only src scripts
   - mypy --package=src
   - flake8 src/ scripts/
   - docker-compose build
