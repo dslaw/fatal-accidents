@@ -1,6 +1,6 @@
 # fatal-accidents
 
-[![Build Status](https://travis-ci.org/dslaw/fatal-accidents.svg?branch=master)](https://travis-ci.org/dslaw/fatal-accidents)
+![[.github/workflows/ci.yml](Build Status)](https://github.com/dslaw/fatal-accidents/workflows/.github/workflows/ci.yml/badge.svg)
 
 Example of event-driven ELT using the
 [FARS](https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars)
